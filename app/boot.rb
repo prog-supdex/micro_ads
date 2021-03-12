@@ -9,7 +9,6 @@ ENV['RACK_ENV'] = 'development' unless ENV['RACK_ENV']
 require 'roda'
 require 'sequel'
 require 'active_job'
-require 'active_support'
 require 'fast_jsonapi'
 require 'logger'
 require 'dry-initializer'
