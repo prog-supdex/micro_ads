@@ -1,22 +1,12 @@
 namespace :db do
   ENV['RACK_ENV'] ||= 'development'
-
-  begin
-    require 'dotenv'
-    Dotenv.load
-  rescue LoadError
-  end
-
-  require 'sequel'
-  require_relative '../../app/initializers/01_sequal'
-  require 'logger'
-
   Sequel.extension :migration
 
   DB_MIGRATION_PATH = 'db/migrations'.freeze
 
   desc "Prints current schema version"
   task :version do
+    puts DB.tables.inspect
     version =
       if DB.tables.include?(:schema_info)
         DB[:schema_info].first[:version]
