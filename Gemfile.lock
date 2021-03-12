@@ -55,7 +55,8 @@ DEPENDENCIES
   fast_jsonapi (~> 1.5)
   geocoder (~> 1.6, >= 1.6.6)
   pagy (~> 4.0)
-  puma
+  pg (~> 1.2, >= 1.2.3)
+  puma (~> 5.0)
   rack-unreloader
   refrigerator (>= 1)
   roda (>= 3.19)
