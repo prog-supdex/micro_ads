@@ -1,8 +1,15 @@
 namespace :db do
-  ENV['RACK_ENV'] ||= 'development'
   Sequel.extension :migration
 
   DB_MIGRATION_PATH = 'db/migrations'.freeze
+
+  task :create do
+    DB.execute("CREATE DATABASE #{DbConfig.get('database')}")
+  end
+
+  task :drop do
+    DB.execute("DROP DATABASE IF EXISTS #{DbConfig.get('database')}")
+  end
 
   desc "Prints current schema version"
   task :version do
