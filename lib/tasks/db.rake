@@ -1,5 +1,14 @@
 namespace :db do
-  require_relative '../../db'
+  ENV['RACK_ENV'] ||= 'development'
+
+  begin
+    require 'dotenv'
+    Dotenv.load
+  rescue LoadError
+  end
+
+  require 'sequel'
+  require_relative '../../app/initializers/01_sequal'
   require 'logger'
 
   Sequel.extension :migration

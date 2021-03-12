@@ -1,54 +1,40 @@
-require_relative 'models'
+require 'logger'
 
-require 'roda'
+require_relative 'app/boot'
 
 class App < Roda
   plugin :json
-  plugin :empty_root
+  plugin :typecast_params
 
-  logger =
-    if ENV['RACK_ENV'] == 'test'
-      Class.new{def write(_) end}.new
-    else
-      $stderr
-    end
-
-  plugin :common_logger, logger
-
-  plugin :not_found do
-    @page_title = "File Not Found"
-    view(:content=>"")
-  end
-
-  plugin :error_handler do |e|
-    case e
-    when Roda::RodaPlugins::RouteCsrf::InvalidToken
-      @page_title = "Invalid Security Token"
-      response.status = 400
-      view(:content=>"<p>An invalid security token was submitted with this request, and this request could not be processed.</p>")
-    else
-      $stderr.print "#{e.class}: #{e.message}\n"
-      $stderr.puts e.backtrace
-      next exception_page(e, :assets=>true) if ENV['RACK_ENV'] == 'development'
-      @page_title = "Internal Server Error"
-      view(:content=>"")
-    end
-  end
-
-  # plugin :sessions,
-  #   key: '_App.session',
-  #   #cookie_options: {secure: ENV['RACK_ENV'] != 'test'}, # Uncomment if only allowing https:// access
-  #   secret: ENV.send((ENV['RACK_ENV'] == 'development' ? :[] : :delete), 'APP_SESSION_SECRET')
-
-  Unreloader.require('routes'){}
-
-  hash_routes do
-    view '', 'index'
-  end
+  use Rack::CommonLogger, Logger.new($stdout)
 
   route do |r|
-    r.root do
+    r.on 'ads' do
+      r.is do
+        r.get(true) do
+          pagy_object, records = PagyService.new(scope: Ad.order(Sequel.desc(:updated_at)), request: request).call
 
+          if records.present?
+            AdSerializer.new(records.all, links: PaginationLinks.pagination_links(pagy: pagy_object)).serialized_json
+          else
+            {}
+          end
+        end
+
+        r.post do
+          #TODO реализовать проверку параметров, по типу рельсовой params.requre(:ad).permit(...)
+          params = JSON.parse(r.body.read)
+          result = Ads::CreateService.call(ad: params['ad'])
+
+          if result.success?
+            response.status = Rack::Utils::SYMBOL_TO_STATUS_CODE[:created]
+
+            AdSerializer.new(result.ad).serialized_json
+          else
+            error_response(result.ad, :unprocessable_entity)
+          end
+        end
+      end
     end
   end
 end

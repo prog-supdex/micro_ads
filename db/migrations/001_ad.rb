@@ -8,6 +8,8 @@ Sequel.migration do
       Float :lat
       Float :lon
       Integer :user_id, null: false
+      Timestamp :created_at, null: false
+      Timestamp :updated_at, null: false
     end
   end
 end
