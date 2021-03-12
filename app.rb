@@ -1,5 +1,4 @@
 require 'logger'
-
 require_relative 'app/boot'
 
 class App < Roda

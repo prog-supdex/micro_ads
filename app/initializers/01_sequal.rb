@@ -1,6 +1,3 @@
-puts '========================'
-puts DbConfig.get('username')
-puts DbConfig.get('password')
 DB = Sequel.connect(
   adapter: :postgres,
   user: DbConfig.get('username'),
@@ -19,13 +16,6 @@ Sequel::Model.plugin :timestamps, update_on_create: true
 Sequel::Model.plugin :auto_validations
 Sequel::Model.plugin :prepared_statements
 Sequel::Model.plugin :subclasses unless ENV['RACK_ENV'] == 'development'
-
-# unless defined?(Unreloader)
-#   require 'rack/unreloader'
-#   Unreloader = Rack::Unreloader.new(reload: false)
-# end
-
-#Unreloader.require('app/models'){|f| Sequel::Model.send(:camelize, File.basename(f).sub(/\.rb\z/, ''))}
 
 if ENV['RACK_ENV'] == 'development' || ENV['RACK_ENV'] == 'test'
   require 'logger'
