@@ -13,6 +13,7 @@ gem 'fast_jsonapi', '~> 1.5'
 gem 'dry-initializer', '~> 3.0', '>= 3.0.4'
 gem 'activejob', '~> 6.1', '>= 6.1.3'
 gem 'geocoder', '~> 1.6', '>= 1.6.6'
+gem 'erb', '~> 2.2', '>= 2.2.2'
 
 group :development do
   gem 'sequel-annotate'

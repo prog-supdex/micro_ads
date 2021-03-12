@@ -1,10 +1,13 @@
+puts '========================'
+puts DbConfig.get('username')
+puts DbConfig.get('password')
 DB = Sequel.connect(
   adapter: :postgres,
-  user: ENV['DATABASE_USER_NAME'],
-  password: ENV['DATABASE_USER_PASSWORD'],
-  host: ENV['DATABASE_HOST'] || 'localhost',
-  port: ENV['DATABASE_PORT'] || 5432,
-  database: ENV['DATABASE_NAME']
+  user: DbConfig.get('username'),
+  password: DbConfig.get('password'),
+  host: DbConfig.get('host'),
+  port: DbConfig.get('port') || 5432,
+  database: DbConfig.get('database')
 )
 
 if ENV['RACK_ENV'] == 'development'
