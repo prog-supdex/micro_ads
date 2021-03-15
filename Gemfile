@@ -10,6 +10,7 @@ gem 'rack-unreloader'
 gem 'pagy', '~> 4.0'
 gem 'puma', '~> 5.0'
 gem 'dotenv', '~> 2.7', '>= 2.7.6'
+gem 'activesupport', '~> 6.1', '>= 6.1.3', require: false
 gem 'fast_jsonapi', '~> 1.5'
 gem 'dry-initializer', '~> 3.0', '>= 3.0.4'
 gem 'activejob', '~> 6.1', '>= 6.1.3'
