@@ -1,5 +1,3 @@
-require './app'
+require_relative 'config/environment'
 
-$stdout.sync = true
-
-run App.app
+run Application
