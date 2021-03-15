@@ -91,9 +91,6 @@ GEM
       parser (>= 2.7.1.5)
     ruby-progressbar (1.11.0)
     sequel (5.42.0)
-    sequel_pg (1.14.0)
-      pg (>= 0.18.0, != 1.2.0)
-      sequel (>= 4.38.0)
     tzinfo (2.0.4)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.0.0)
@@ -121,7 +118,6 @@ DEPENDENCIES
   roda (>= 3.19)
   rubocop (~> 1.11)
   sequel (>= 5)
-  sequel_pg (>= 1.8)
 
 RUBY VERSION
    ruby 3.0.0p0
