@@ -11,14 +11,14 @@ module ApplicationLoader
 
   private
 
-  def init_config
-    require_file 'config/initializers/config'
+  def load_env_if_development
+    return if ENV['RACK_ENV'] != 'development'
+
+    require 'dotenv/load'
   end
 
-  def load_env_if_development
-    if ENV['RACK_ENV'] == 'development'
-      require 'dotenv/load'
-    end
+  def init_config
+    require_file 'config/initializers/config'
   end
 
   def init_db
@@ -27,6 +27,7 @@ module ApplicationLoader
 
   def require_app
     require_file 'config/application'
+    require_dir 'app'
   end
 
   def init_app
