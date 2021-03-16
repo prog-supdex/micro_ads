@@ -6,14 +6,21 @@ module Ads
       option :title
       option :description
       option :city
-      option :user_id
     end
+
+    option :user_id
 
     def call
       @ad = ::Ad.new(@ad.to_h)
-      return fail!(@ad.errors) unless @ad.save
+      @ad.user_id = @user_id
 
-      GeocodingJob.perform_later(@ad.values)
+      if @ad.valid?
+        @ad.save
+
+        GeocodingJob.perform_later(@ad.values)
+      else
+        fail!(@ad.errors)
+      end
     end
   end
 end
