@@ -1,51 +1,61 @@
 namespace :db do
+  require 'sequel/core'
   Sequel.extension :migration
 
-  DB_MIGRATION_PATH = 'db/migrations'.freeze
+  DB_MIGRATION_PATH = File.expand_path('../../db/migrations', __dir__).freeze
 
-  task :create do
-    DB.execute("CREATE DATABASE #{DbConfig.get('database')}")
+  task create: :settings do
+    DB.execute("CREATE DATABASE #{Settings.db.database}")
   end
 
-  task :drop do
-    DB.execute("DROP DATABASE IF EXISTS #{DbConfig.get('database')}")
+  task drop: :settings do
+    DB.execute("DROP DATABASE IF EXISTS #{Settings.db.database}")
   end
 
-  desc "Prints current schema version"
-  task :version do
-    puts DB.tables.inspect
+  desc 'Prints current schema version'
+  task version: :settings do
+    db = Sequel.connect(Settings.db.to_hash)
+
     version =
-      if DB.tables.include?(:schema_info)
-        DB[:schema_info].first[:version]
+      if db.tables.include?(:schema_info)
+        db[:schema_info].first[:version]
       end || 0
 
     puts "Schema Version: #{version}"
   end
 
-  desc "Perform migration up to latest migration available"
-  task :migrate do
-    Sequel::Migrator.run(DB, DB_MIGRATION_PATH)
+  desc 'Perform migration up to latest migration available'
+  task migrate: :settings do
+    db = Sequel.connect(Settings.db.to_hash)
+
+    Sequel::Migrator.run(db, DB_MIGRATION_PATH)
     Rake::Task['db:version'].execute
   end
 
-  desc "Perform rollback to specified target or full rollback as default"
-  task :rollback, :target do |t, args|
+  desc 'Perform rollback to specified target or full rollback as default'
+  task :rollback, [:target] => :settings do |_, args|
+    db = Sequel.connect(Settings.db.to_hash)
+
     version =
-      if DB.tables.include?(:schema_info)
-        DB[:schema_info].first[:version]
+      if db.tables.include?(:schema_info)
+        db[:schema_info].first[:version]
       end || 0
 
     target = version.zero? ? 0 : (version - 1)
     args.with_defaults(target: target)
 
-    Sequel::Migrator.run(DB, DB_MIGRATION_PATH, target: args[:target].to_i)
+    puts DB_MIGRATION_PATH
+
+    Sequel::Migrator.run(db, DB_MIGRATION_PATH, target: args[:target].to_i)
     Rake::Task['db:version'].execute
   end
 
-  desc "Perform migration reset (full rollback and migration)"
-  task :reset do
-    Sequel::Migrator.run(DB, DB_MIGRATION_PATH, target: 0)
-    Sequel::Migrator.run(DB, DB_MIGRATION_PATH)
+  desc 'Perform migration reset (full rollback and migration)'
+  task reset: :settings do
+    db = Sequel.connect(Settings.db.to_hash)
+
+    Sequel::Migrator.run(db, DB_MIGRATION_PATH, target: 0)
+    Sequel::Migrator.run(db, DB_MIGRATION_PATH)
     Rake::Task['db:version'].execute
   end
 end
