@@ -1,3 +1,3 @@
-require_relative 'app/rake_boot'
+ENV['RACK_ENV'] ||= 'development'
 
-Rake.add_rakelib('lib/tasks')
+Rake.add_rakelib('rakelib/**')
