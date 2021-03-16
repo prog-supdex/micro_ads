@@ -44,8 +44,6 @@ namespace :db do
     target = version.zero? ? 0 : (version - 1)
     args.with_defaults(target: target)
 
-    puts DB_MIGRATION_PATH
-
     Sequel::Migrator.run(db, DB_MIGRATION_PATH, target: args[:target].to_i)
     Rake::Task['db:version'].execute
   end
