@@ -1,5 +1,6 @@
 class Application < Roda
   plugin :json
+  plugin :hash_routes
   plugin :environments
   plugin :symbol_status
 
