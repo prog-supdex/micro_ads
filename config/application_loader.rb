@@ -2,11 +2,28 @@ module ApplicationLoader
   extend self
 
   def load_app!
+    load_env_if_development
+    init_config
+    init_db
     require_app
     init_app
   end
 
   private
+
+  def init_config
+    require_file 'config/initializers/config'
+  end
+
+  def load_env_if_development
+    if ENV['RACK_ENV'] == 'development'
+      require 'dotenv/load'
+    end
+  end
+
+  def init_db
+    require_file 'config/initializers/db'
+  end
 
   def require_app
     require_file 'config/application'
