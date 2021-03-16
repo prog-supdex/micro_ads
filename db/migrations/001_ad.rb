@@ -1,15 +1,17 @@
 Sequel.migration do
   change do
     create_table(:ads) do
-      primary_key :id
-      String :title, null: false
-      String :description, null: false, text: true
-      String :city, null: false
-      Float :lat
-      Float :lon
-      Integer :user_id, null: false
-      Timestamp :created_at, null: false
-      Timestamp :updated_at, null: false
+      primary_key :id, type: :Bignum
+
+      column :user_id, :Bignum, null: false
+      column :title, 'character varying', null: false
+      column :description, 'text', null: false
+      column :lat, 'double precision', null: false
+      column :lon, 'double precision', null: false
+      column :created_at, 'timestamp(6) without time zone', null: false
+      column :updated_at, 'timestamp(6) without time zone', null: false
+
+      index [:user_id], name: :index_ads_on_user_id
     end
   end
 end
