@@ -1,4 +1,5 @@
 class Application < Roda
+  plugin :json
   plugin :environments
   plugin :symbol_status
 
