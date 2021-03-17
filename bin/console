@@ -2,7 +2,7 @@
 
 require_relative '../config/environment'
 
-puts "Loading #{Application.environment} environment (Roda #{123})"
+puts "Loading #{Application.environment} environment (Roda #{Roda::RodaVersion})"
 
 require 'irb'
 IRB.start(__FILE__)
