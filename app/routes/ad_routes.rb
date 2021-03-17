@@ -1,17 +1,18 @@
 class AdRoutes < Application
   use Rack::CommonLogger, Logger.new($stdout)
 
+  plugin :pagination_links
+
   route do |r|
     r.on 'ads/v1' do
       r.is do
         r.get(true) do
-          pagy_object, records = PagyService.new(scope: Ad.order(Sequel.desc(:updated_at)), request: request).call
+          page = r.params[:page].presence || 1
+          ads = Ad.reverse_order(:updated_at)
+          ads = ads.paginate(page.to_i, Settings.pagination.page_size)
 
-          if records.present?
-            AdSerializer.new(records.all, links: PaginationLinks.pagination_links(pagy: pagy_object)).serialized_json
-          else
-            {}
-          end
+          serializer = AdSerializer.new(ads.all, links: r.pagination_links(ads))
+          serializer.serializable_hash
         end
 
         r.post do
