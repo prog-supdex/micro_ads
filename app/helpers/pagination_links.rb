@@ -1,24 +1,30 @@
-module PaginationLinks
-  extend self
+class Roda
+  module RodaPlugins
+    module PaginationLinks
+      module RequestMethods
+        def pagination_links(dataset)
+          return {} if dataset.pagination_record_count.zero?
 
-  def pagination_links(pagy:)
-    return {} if pagy.count.zero?
+          links = {
+            first: pagination_link(page: 1),
+            last: pagination_link(page: dataset.page_count)
+          }
 
-    links = {
-      first: pagination_link(page: 1),
-      last: pagination_link(page: pagy.count)
-    }
+          links[:next] = pagination_link(page: dataset.next_page) if dataset.next_page.present?
+          links[:prev] = pagination_link(page: dataset.prev_page) if dataset.prev_page.present?
 
-    links[:next] = pagination_link(page: pagy.next) if pagy.next.present?
-    links[:prev] = pagination_link(page: pagy.prev) if pagy.prev.present?
+          links
+        end
 
-    links
-  end
+        private
 
-  private
+        def pagination_link(page:)
+          qs = self.params.merge('page' => page).to_query
+          [self.path, qs].join('?')
+        end
+      end
+    end
 
-  #TODO временное решение, исправить
-  def pagination_link(page:)
-    "/ads?page=#{page}"
+    register_plugin :pagination_links, PaginationLinks
   end
 end
