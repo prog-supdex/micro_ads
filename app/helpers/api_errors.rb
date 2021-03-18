@@ -9,7 +9,7 @@ class Roda
 
             error_response I18n.t(:not_found, scope: 'api.errors')
           when Sequel::UniqueConstraintViolation
-            respose.status = :not_unique
+            response.status = :not_unique
 
             error_response I18n.t(:not_unique, scope: 'api.errors')
           when Sequel::NotNullConstraintViolation, Roda::RodaPlugins::Validations::InvalidParams, KeyError
