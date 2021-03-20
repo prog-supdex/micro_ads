@@ -2,11 +2,12 @@ class AdRoutes < Application
   use Rack::CommonLogger, Logger.new($stdout)
 
   plugin :pagination_links
+  plugin :auth
 
   route do |r|
-    r.on 'ads/v1' do
+    r.on 'v1/ads' do
       r.is do
-        r.get(true) do
+        r.get do
           page = r.params[:page].presence || 1
           ads = Ad.reverse_order(:updated_at)
           ads = ads.paginate(page.to_i, Settings.pagination.page_size)
@@ -19,7 +20,7 @@ class AdRoutes < Application
           params = JSON.parse(r.body.read)
           ad_params = r.validate_with!(validation: AdParamsContract, params: params)
 
-          result = Ads::CreateService.call(ad: ad_params[:ad], user_id: params['user_id'])
+          result = Ads::CreateService.call(ad: ad_params[:ad], user_id: user_id)
 
           if result.success?
             response.status = :created
