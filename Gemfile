@@ -13,6 +13,8 @@ gem 'dry-validation', '~> 1.6'
 gem 'activejob', '~> 6.1', '>= 6.1.3'
 gem 'geocoder', '~> 1.6', '>= 1.6.6'
 gem 'i18n', '~> 1.8', '>= 1.8.9'
+gem 'faraday', '~> 1.3'
+gem 'faraday_middleware', '~> 1.0'
 
 group :development do
   gem 'dotenv', '~> 2.7', '>= 2.7.6'
