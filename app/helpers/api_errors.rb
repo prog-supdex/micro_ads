@@ -12,7 +12,11 @@ class Roda
             response.status = :not_unique
 
             error_response I18n.t(:not_unique, scope: 'api.errors')
-          when Sequel::NotNullConstraintViolation, Roda::RodaPlugins::Validations::InvalidParams, KeyError
+          when Roda::RodaPlugins::Validations::InvalidParams
+            response.status = 422
+
+            error_response I18n.t(:missing_parameters, scope: 'api.errors')
+          when Sequel::NotNullConstraintViolation, KeyError
             response.status = :unprocessable_entity
 
             error_response I18n.t(:missing_parameters, scope: 'api.errors')
