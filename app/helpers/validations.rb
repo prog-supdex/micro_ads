@@ -14,9 +14,7 @@ class Roda
 
         def validate_with(validation:, params:)
           contract = validation.new
-          result = contract.call(params)
-
-          result
+          contract.call(params)
         end
       end
     end
