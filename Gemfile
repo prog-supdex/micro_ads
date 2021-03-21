@@ -16,6 +16,13 @@ gem 'i18n', '~> 1.8', '>= 1.8.9'
 gem 'faraday', '~> 1.3'
 gem 'faraday_middleware', '~> 1.0'
 
+group :development, :test do
+  gem 'rack-test', '~> 1.1'
+  gem 'rspec', '~> 3.10'
+  gem 'factory_bot', '~> 6.1'
+  gem 'database_cleaner-sequel', '~> 2.0'
+end
+
 group :development do
   gem 'dotenv', '~> 2.7', '>= 2.7.6'
   gem 'rubocop', '~> 1.11'
