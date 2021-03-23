@@ -1,3 +1,6 @@
 db:
   database: micro_ads_test
   max_connections: 1
+api_endpoints:
+  auth_link: 'http://localhost:3010/v1'
+  geocoder_link: 'http://localhost:3020/v1'

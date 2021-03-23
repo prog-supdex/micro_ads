@@ -11,3 +11,6 @@ db:
   port: 5432
 pagination:
   page_size: 10
+api_endpoints:
+  auth_link:
+  geocoder_link:
