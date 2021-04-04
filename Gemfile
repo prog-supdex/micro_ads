@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 ruby '3.0.0'
 
+gem 'bunny', '~> 2.17'
 gem 'config', '~> 3.0'
 gem 'roda', '>= 3.19'
 gem 'sequel', '>= 5'
@@ -10,7 +11,6 @@ gem 'activesupport', '~> 6.1', '>= 6.1.3', require: false
 gem 'fast_jsonapi', '~> 1.5'
 gem 'dry-initializer', '~> 3.0', '>= 3.0.4'
 gem 'dry-validation', '~> 1.6'
-gem 'activejob', '~> 6.1', '>= 6.1.3'
 gem 'i18n', '~> 1.8', '>= 1.8.9'
 gem 'faraday', '~> 1.3'
 gem 'faraday_middleware', '~> 1.0'
