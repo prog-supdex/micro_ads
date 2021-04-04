@@ -3,7 +3,7 @@ module Ads
     queue_as :default
 
     def perform(ad_hash)
-      coordinates = Geocoder.search(ad_hash[:city])[0].coordinates
+      coordinates = GeocoderService::Client.new.search(ad_hash[:city])
 
       return if coordinates.blank?
 

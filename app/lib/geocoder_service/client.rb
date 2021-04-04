@@ -1,12 +1,12 @@
 require 'dry/initializer'
 require_relative 'api'
 
-module AuthService
+module GeocoderService
   class Client
     extend Dry::Initializer[undefined: false]
     include Api
 
-    option :url, default: proc { Settings.api_endpoints.auth_link }
+    option :url, default: proc { Settings.api_endpoints.geocoder_link }
     option :connection, default: proc { build_connection }
 
     private

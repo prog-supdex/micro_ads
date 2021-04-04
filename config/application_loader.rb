@@ -40,7 +40,7 @@ module ApplicationLoader
   end
 
   def load_root_path
-    require_file 'app/services/root_service'
+    require_file 'config/initializers/root_path'
   end
 
   def require_file(path)

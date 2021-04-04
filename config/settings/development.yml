@@ -1,2 +1,5 @@
 db:
   database: micro_ads_development
+api_endpoints:
+  auth_link: 'http://localhost:3010/v1'
+  geocoder_link: 'http://localhost:3020/v1'
