@@ -6,5 +6,5 @@ class Application < Roda
   plugin :validations
   plugin :api_errors
 
-  opts[:root] = RootService::PATH
+  opts[:root] = RootPath::PATH
 end
