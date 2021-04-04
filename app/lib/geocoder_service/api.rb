@@ -1,9 +1,9 @@
 module GeocoderService
   module Api
-    def search(address)
-      response = connection.post('search', address: address)
+    def geocode_later(ad)
+      payload = { id: ad[:id], city: ad[:city] }.to_json
 
-      response.body if response.success?
+      publish(payload, { type: 'geocode' })
     end
   end
 end

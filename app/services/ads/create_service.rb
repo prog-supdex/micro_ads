@@ -9,6 +9,7 @@ module Ads
     end
 
     option :user_id
+    option :geocoder_service, default: proc { GeocoderService::Client.new }
 
     def call
       @ad = ::Ad.new(@ad.to_h)
@@ -17,7 +18,7 @@ module Ads
       if @ad.valid?
         @ad.save
 
-        GeocodingJob.perform_later(@ad.values)
+        @geocoder_service.geocode_later(ad: @ad)
       else
         fail!(@ad.errors)
       end
