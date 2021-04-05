@@ -7,9 +7,9 @@ class Roda
 
       module InstanceMethods
         def user_id
-          user_id = auth_service.auth(matched_token)
+          user_id = auth_service.auth(matched_token).to_i
 
-          raise Unauthorized if user_id.blank?
+          raise Unauthorized if user_id.zero?
 
           user_id
         end
@@ -17,7 +17,7 @@ class Roda
         private
 
         def auth_service
-          @auth_service ||= AuthService::Client.new
+          @auth_service ||= AuthService::Client.fetch
         end
 
         def matched_token
