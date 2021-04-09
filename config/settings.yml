@@ -1,4 +1,5 @@
 app:
+  name: ads
   schema_file_name: 'schema.rb'
   seed_folder_path: <%= "#{RootPath::PATH}/db/seeds" %>
   migrations_folder_path: <%= "#{RootPath::PATH}/db/migrations" %>
@@ -16,3 +17,6 @@ pagination:
 api_endpoints:
   auth_link:
   geocoder_link:
+logger:
+  path: log/app.log
+  level: info

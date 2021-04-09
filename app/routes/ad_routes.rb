@@ -1,6 +1,4 @@
 class AdRoutes < Application
-  use Rack::CommonLogger, Logger.new($stdout)
-
   plugin :pagination_links
   plugin :auth
 
