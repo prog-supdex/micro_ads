@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 ruby '3.0.0'
 
+gem 'amazing_print', '~> 1.3'
 gem 'bunny', '~> 2.17'
 gem 'config', '~> 3.0'
 gem 'roda', '>= 3.19'
