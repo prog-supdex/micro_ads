@@ -9,7 +9,13 @@ module Ads
     def call
       return fail!(I18n.t(:not_found, scope: 'services.ads.update_service')) if @ad.blank?
 
-      @ad.update_fields(@data, %i[lat lon])
+      if @ad.update_fields(@data, %i[lat lon])
+        Application.logger.info(
+          'updated coordinates(lat, lon)',
+          city: payload['city'],
+          coordinates: { lat: @data[:lat], lon: @data[:lon] }
+        )
+      end
     end
   end
 end

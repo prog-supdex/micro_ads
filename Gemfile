@@ -1,12 +1,13 @@
 source 'https://rubygems.org'
 ruby '3.0.0'
 
+gem 'amazing_print', '~> 1.3'
 gem 'bunny', '~> 2.17'
 gem 'config', '~> 3.0'
 gem 'roda', '>= 3.19'
 gem 'sequel', '>= 5'
 gem 'pg', '~> 1.2', '>= 1.2.3'
-gem 'rack-ougai', '~> 0.2.1'
+gem 'rack-ougai', '~> 0.2.1', git: 'https://github.com/prog-supdex/rack-ougai.git', branch: 'add_body_to_log'
 gem 'rack-request-id', '~> 0.0.4'
 gem 'puma', '~> 5.0'
 gem 'activesupport', '~> 6.1', '>= 6.1.3', require: false
