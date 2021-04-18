@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/prog-supdex/rack-ougai.git
-  revision: c25cd09fa8b0a9a2ddbd429141a45933c3b00196
+  revision: 1f1430e437bbb0a1ed9734e08ae6d729ac161fd2
   branch: add_body_to_log
   specs:
     rack-ougai (0.2.1)
@@ -82,7 +82,7 @@ GEM
     minitest (5.14.4)
     multipart-post (2.1.1)
     nio4r (2.5.7)
-    oj (3.11.3)
+    oj (3.11.5)
     ougai (1.9.1)
       oj (~> 3.10)
     parallel (1.20.1)
@@ -96,6 +96,7 @@ GEM
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rainbow (3.0.0)
+    rake (13.0.3)
     regexp_parser (2.1.1)
     rexml (3.2.4)
     roda (3.41.0)
@@ -154,6 +155,7 @@ DEPENDENCIES
   rack-ougai (~> 0.2.1)!
   rack-request-id (~> 0.0.4)
   rack-test (~> 1.1)
+  rake (~> 13.0, >= 13.0.3)
   roda (>= 3.19)
   rspec (~> 3.10)
   rubocop (~> 1.11)

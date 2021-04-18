@@ -1,8 +1,6 @@
-# Тут можно определить configure(:production)/configure(:development) и в них все описать
-# но выходит дублирование, потому и определяю внутри одного configure и проверяю на environment
 Application.configure do |app|
   logger = Ougai::Logger.new(
-    app.development? ? STDOUT : "#{app.opts[:root]}/#{Settings.logger.path}",
+    app.production? ? STDOUT : "#{app.opts[:root]}/#{Settings.logger.path}",
     level: Settings.logger.level
   )
 
@@ -18,4 +16,4 @@ Application.configure do |app|
   app.opts[:custom_logger] = logger
 end
 
-Sequel::Model.db.loggers.push(Application.opts[:common_logger])
+Sequel::Model.db.loggers.push(Application.opts[:custom_logger])

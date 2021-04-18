@@ -5,6 +5,9 @@ app:
   migrations_folder_path: <%= "#{RootPath::PATH}/db/migrations" %>
   db_schema_folder_path: <%= "#{RootPath::PATH}/db" %>
 rabbitmq:
+  host: <%= ENV['RABBITMQ_HOST'] %>
+  username: <%= ENV['RABBITMQ_USER'] %>
+  password: <%= ENV['RABBITMQ_PASSWORD']%>
   consumer_pool: 10
 db:
   adapter: postgresql
@@ -12,6 +15,7 @@ db:
   user: postgres
   password: password
   port: 5432
+  url: <%= ENV['ADS_DATABASE_URL'] %>
 pagination:
   page_size: 10
 api_endpoints:
