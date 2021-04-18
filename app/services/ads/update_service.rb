@@ -10,7 +10,7 @@ module Ads
       return fail!(I18n.t(:not_found, scope: 'services.ads.update_service')) if @ad.blank?
 
       if @ad.update_fields(@data, %i[lat lon])
-        Application.logger.info(
+        Application.opts[:custom_logger].info(
           'updated coordinates(lat, lon)',
           city: payload['city'],
           coordinates: { lat: @data[:lat], lon: @data[:lon] }
