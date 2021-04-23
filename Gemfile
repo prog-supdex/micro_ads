@@ -18,6 +18,7 @@ gem 'dry-validation', '~> 1.6'
 gem 'i18n', '~> 1.8', '>= 1.8.9'
 gem 'faraday', '~> 1.3'
 gem 'faraday_middleware', '~> 1.0'
+gem 'prometheus-client', '~> 2.1'
 
 group :development, :test do
   gem 'rack-test', '~> 1.1'
