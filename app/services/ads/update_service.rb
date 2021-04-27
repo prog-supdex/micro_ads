@@ -12,7 +12,7 @@ module Ads
       if @ad.update_fields(@data, %i[lat lon])
         Application.opts[:custom_logger].info(
           'updated coordinates(lat, lon)',
-          city: payload['city'],
+          city: @data['city'],
           coordinates: { lat: @data[:lat], lon: @data[:lon] }
         )
       end
