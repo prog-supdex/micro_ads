@@ -3,8 +3,8 @@
     gather_facts: no
     vars:
       image: ads
-      docker_user: prog-supdex
-      docker_password: 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
+      docker_user: '{{ lookup("env", "DOCKER_USER") }}'
+      docker_password: '{{ lookup("env", "DOCKER_PASSWORD") }}'
       registry: docker.pkg.github.com
       repository: '{{ registry }}/{{ docker_user }}/micro_ads/{{ image }}'
     tasks:
